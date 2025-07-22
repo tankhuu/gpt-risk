@@ -70,41 +70,75 @@ To get a local copy up and running, follow these simple steps.
   * Pip package manager
   * An API key for the Gemini model
 
-### Installation
+### Project Structure
 
-1.  **Clone the repository:**
-    ```sh
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
-    ```
-2.  **Create and activate a virtual environment:**
-    ```sh
-    # For macOS/Linux
-    python3 -m venv venv
-    source venv/bin/activate
-
-    # For Windows
-    python -m venv venv
-    .\venv\Scripts\activate
-    ```
-3.  **Install the required packages:**
-    ```sh
-    pip install -r requirements.txt
-    ```
-4.  **Set up your environment variables:**
-    Create a `.env` file in the root directory and add your API keys:
-    ```
-    GOOGLE_API_KEY="YOUR_GEMINI_API_KEY"
-    ```
-
-### Usage
-
-Launch the application by running the main script. This will start the chat interface where you can begin interacting with the AI Assistant.
-
-```sh
-python main.py
+```
+.
+├── app/
+│   ├── __init__.py
+│   ├── config.py         # Pydantic settings for environment variables
+│   ├── graph.py          # Core LangGraph agent definition
+│   ├── llms.py           # LLM initializations
+│   ├── main.py           # FastAPI app and Gradio UI entrypoint
+│   ├── state.py          # LangGraph state definition
+│   └── tools/
+│       ├── __init__.py
+│       ├── databricks_rag.py # RAG tool for Databricks
+│       └── ml_models.py      # Tools for traditional ML models
+├── data_processing/
+│   ├── __init__.py
+│   ├── train_credit_model.py # Script to train a dummy credit risk model
+│   └── train_fraud_model.py  # Script to train a dummy fraud detection model
+├── models/
+│   └──.gitkeep          # Directory for saved ML models
+├── tests/
+│   └──.gitkeep          # Directory for tests
+├──.env.example          # Example environment variables
+├──.gitignore
+├── pyproject.toml        # Poetry project configuration
+└── poetry.lock
 ```
 
+### Setup and Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository_url>
+    cd <repository_directory>
+    ```
+
+2.  **Install Poetry:**
+    If you don't have Poetry, follow the instructions at [python-poetry.org](https://python-poetry.org/docs/#installation).
+
+3.  **Install dependencies:**
+    ```bash
+    poetry install
+    ```
+
+4.  **Set up environment variables:**
+    Copy the example `.env` file and fill in your API keys and configuration details.
+    ```bash
+    cp.env.example.env
+    # Now edit the.env file with your credentials
+    ```
+
+5.  **Train dummy ML models (Optional):**
+    To create the placeholder model files that the tools will load, run the training scripts.
+    ```bash
+    poetry run python data_processing/train_fraud_model.py
+    poetry run python data_processing/train_credit_model.py
+    ```
+
+### Running the Application
+
+1.  **Start the FastAPI server:**
+    ```bash
+    poetry run start
+    ```
+
+2.  **Access the application:**
+    *   The Gradio UI will be available at `http://127.0.0.1:8000`.
+    *   The API documentation (Swagger UI) is at `http://127.0.0.1:8000/docs`.
 -----
 
 ## 🤝 Contributing
