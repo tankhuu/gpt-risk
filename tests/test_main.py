@@ -25,9 +25,9 @@ CREDIT_APPLICATION_PAYLOAD = {
 async def test_chat_endpoint_fraud_check(test_client):
     """
     Integration test for the /chat endpoint with a fraud check request.
-    Mocks the LangGraph app to isolate the API layer.
+    Mocks the LangGraph gpt_risk to isolate the API layer.
     """
-    # Mock the response stream from the langgraph app
+    # Mock the response stream from the langgraph gpt_risk
     mock_stream_response = [
         {"request_type": "fraud_check"},
         {"ml_tool_output": '{"fraud_probability": 0.95}'},
@@ -37,7 +37,7 @@ async def test_chat_endpoint_fraud_check(test_client):
 
     # Use patch with AsyncMock for the async generator
     with patch(
-        "app.main.langgraph_app.astream", new_callable=AsyncMock
+        "gpt_risk.main.langgraph_app.astream", new_callable=AsyncMock
     ) as mock_astream:
         # Configure the mock to be an async iterator
         async def async_gen():
@@ -71,7 +71,7 @@ async def test_chat_endpoint_credit_risk(test_client):
     ]
 
     with patch(
-        "app.main.langgraph_app.astream", new_callable=AsyncMock
+        "gpt_risk.main.langgraph_app.astream", new_callable=AsyncMock
     ) as mock_astream:
 
         async def async_gen():

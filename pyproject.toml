@@ -6,12 +6,12 @@ authors = [
     {name = "tankhuu",email = "jackiekhuu.work@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12,<3.13"
+packages = [{ include = "gpt_risk", from = "src" }]
 dependencies = [
 ]
 
 [tool.poetry.dependencies]
-python = "3.12.*"
+python = "3.12.9"
 fastapi = "^0.116.1"
 uvicorn = {extras = ["standard"], version = "^0.35.0"}
 poetry = "^2.1.3"
@@ -23,7 +23,7 @@ pydantic-settings = "^2.10.1"
 scikit-learn = "^1.7.1"
 xgboost = "^3.0.2"
 pandas = "^2.3.1"
-numpy = "^2.3.1"
+numpy = "^1.15"
 databricks-langchain = "0.6.0"
 langchain-google-genai = "^2.1.8"
 langchain-openai = "^0.3.28" # Used as a proxy for other models

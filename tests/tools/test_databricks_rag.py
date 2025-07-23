@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 import json
 
 # Import the tool to be tested
-from app.tools.databricks_rag import query_databricks_vector_search
+from src.app.tools.databricks_rag import query_databricks_vector_search
 
 
 class MockDocument:
@@ -14,8 +14,8 @@ class MockDocument:
         self.metadata = metadata
 
 
-@patch("app.tools.databricks_rag.DatabricksVectorSearch")
-@patch("app.tools.databricks_rag.DatabricksEmbeddings")
+@patch("gpt_risk.tools.databricks_rag.DatabricksVectorSearch")
+@patch("gpt_risk.tools.databricks_rag.DatabricksEmbeddings")
 def test_query_databricks_vector_search_success(mock_embeddings, mock_dvs_client):
     """
     Unit test for the Databricks RAG tool on a successful run.
@@ -46,10 +46,10 @@ def test_query_databricks_vector_search_success(mock_embeddings, mock_dvs_client
 
 
 @patch(
-    "app.tools.databricks_rag.DatabricksVectorSearch",
+    "gpt_risk.tools.databricks_rag.DatabricksVectorSearch",
     side_effect=Exception("Connection failed"),
 )
-@patch("app.tools.databricks_rag.DatabricksEmbeddings")
+@patch("gpt_risk.tools.databricks_rag.DatabricksEmbeddings")
 def test_query_databricks_vector_search_failure(mock_embeddings, mock_dvs_client):
     """
     Unit test for the Databricks RAG tool when an exception occurs.

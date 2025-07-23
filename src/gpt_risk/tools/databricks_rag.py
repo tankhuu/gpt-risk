@@ -1,6 +1,6 @@
 from langchain_core.tools import tool
 from databricks_langchain import DatabricksVectorSearch, DatabricksEmbeddings
-from app.config import settings
+from src.app.config import settings
 import json
 
 
@@ -32,5 +32,5 @@ def query_databricks_vector_search(query: str, index_name: str) -> str:
         return json.dumps(formatted_results)
 
     except Exception as e:
-        # In a real app, you'd want more specific error handling
+        # In a real gpt_risk, you'd want more specific error handling
         return json.dumps({"error": f"Databricks RAG query failed: {str(e)}"})

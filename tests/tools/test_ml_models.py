@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Import the tools to be tested
-from app.tools.ml_models import run_fraud_detection_model, run_credit_risk_model
+from src.app.tools.ml_models import run_fraud_detection_model, run_credit_risk_model
 
 # Sample data for tool inputs
 SAMPLE_TRANSACTION = {"transaction_amount": 100.0}

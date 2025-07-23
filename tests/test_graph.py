@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from app.state import AgentState
-from app.graph import (
+from src.app.state import AgentState
+from src.app.graph import (
     triage_node,
     fraud_agent_node,
     credit_agent_node,
@@ -13,7 +13,7 @@ from app.graph import (
 # --- Test Triage Node and Routing ---
 
 
-@patch("app.graph.triage_llm")
+@patch("gpt_risk.graph.triage_llm")
 def test_triage_node(mock_triage_llm):
     """Unit test for the triage_node."""
     # Mock the LLM's response
@@ -41,9 +41,9 @@ def test_route_request():
 # --- Test Agent Nodes ---
 
 
-@patch("app.graph.query_databricks_vector_search")
-@patch("app.graph.run_fraud_detection_model")
-@patch("app.graph.fraud_agent_llm")
+@patch("gpt_risk.graph.query_databricks_vector_search")
+@patch("gpt_risk.graph.run_fraud_detection_model")
+@patch("gpt_risk.graph.fraud_agent_llm")
 def test_fraud_agent_node(mock_llm, mock_fraud_tool, mock_rag_tool):
     """Unit test for the fraud_agent_node."""
     # Mock the LLM to return tool calls
@@ -70,9 +70,9 @@ def test_fraud_agent_node(mock_llm, mock_fraud_tool, mock_rag_tool):
     assert result_state["rag_context"] == '[{"content": "some context"}]'
 
 
-@patch("app.graph.query_databricks_vector_search")
-@patch("app.graph.run_credit_risk_model")
-@patch("app.graph.credit_agent_llm")
+@patch("gpt_risk.graph.query_databricks_vector_search")
+@patch("gpt_risk.graph.run_credit_risk_model")
+@patch("gpt_risk.graph.credit_agent_llm")
 def test_credit_agent_node(mock_llm, mock_credit_tool, mock_rag_tool):
     """Unit test for the credit_agent_node."""
     mock_llm.invoke.return_value = MagicMock(
@@ -97,7 +97,7 @@ def test_credit_agent_node(mock_llm, mock_credit_tool, mock_rag_tool):
     assert result_state["rag_context"] == '[{"content": "credit history"}]'
 
 
-@patch("app.graph.synthesis_llm")
+@patch("gpt_risk.graph.synthesis_llm")
 def test_synthesis_node(mock_synthesis_llm):
     """Unit test for the synthesis_node."""
     mock_synthesis_llm.invoke.return_value = MagicMock(

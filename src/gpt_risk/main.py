@@ -4,10 +4,9 @@ import uvicorn
 import httpx
 import json
 from pydantic import BaseModel
-import os
 
-# Mount the Gradio app
-from app.graph import app as langgraph_app
+# Mount the Gradio gpt_risk
+from src.app.graph import app as langgraph_app
 
 # --- FastAPI App ---
 
@@ -50,7 +49,7 @@ def create_gradio_ui():
 
     async def chat_fn(message, history):
         thread_id = (
-            "user_session_123"  # In a real app, this would be unique per user/session
+            "user_session_123"  # In a real gpt_risk, this would be unique per user/session
         )
 
         # Attempt to parse the message as JSON, otherwise treat as a text query
@@ -115,7 +114,7 @@ def create_gradio_ui():
     return interface
 
 
-# Mount the Gradio app to the FastAPI app
+# Mount the Gradio gpt_risk to the FastAPI gpt_risk
 gradio_ui = create_gradio_ui()
 app = gr.mount_gradio_app(app, gradio_ui, path="/")
 
